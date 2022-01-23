@@ -1,5 +1,6 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment } from "react";
 import { Component } from "react/cjs/react.production.min";
+import UsersContext from "../store/users-context";
 
 import styles from "./UserFinder.module.css";
 
@@ -12,6 +13,8 @@ const DUMMY_USERS = [
 ];
 
 class UserFinder extends Component {
+  static contextType = UsersContext;
+
   constructor() {
     super();
     this.state = {
@@ -28,6 +31,10 @@ class UserFinder extends Component {
         ),
       });
     }
+  }
+
+  componentDidMount() {
+    this.setState({ filteredUsers: this.context.users });
   }
 
   searchChangeHandler(event) {
